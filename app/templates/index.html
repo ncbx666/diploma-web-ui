@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Прогноз болезней растений</title>
+    <link rel="stylesheet" href="/static/styles.css">
+  </head>
+  <body>
+    <main class="page">
+      <section class="workspace" aria-labelledby="title">
+        <div class="intro">
+          <p class="eyebrow">Random Forest модели</p>
+          <h1 id="title">Разметка риска болезней растений</h1>
+          <p class="lead">Выберите заболевание, загрузите Excel-файл с погодными данными и получите таблицу с прогнозом, вероятностью и текстовой меткой для каждой строки.</p>
+        </div>
+
+        <!--ERROR-->
+
+        <form class="upload" action="/predict" method="post" enctype="multipart/form-data">
+          <fieldset class="choice-group">
+            <legend>Что прогнозировать</legend>
+            <label class="choice">
+              <input type="radio" name="disease" value="krasnodar_rice_blast" checked>
+              <span>
+                <strong>Пирикуляриоз риса</strong>
+                <small>Краснодар, модель random_forest_f1_0.741</small>
+              </span>
+            </label>
+            <label class="choice">
+              <input type="radio" name="disease" value="gatchina_potato_late_blight">
+              <span>
+                <strong>Фитофтороз картофеля</strong>
+                <small>Гатчина, модель random_forest_f1_0.691</small>
+              </span>
+            </label>
+          </fieldset>
+
+          <label class="dropzone">
+            <span class="dropzone-title">Выберите .xlsx файл</span>
+            <span class="dropzone-note">Поддерживаются структуры как в «Данные Краснодар 2012-2021.xlsx» и «Golitcino72-17d2_CLEAN.xlsx»</span>
+            <input type="file" name="file" accept=".xlsx" required>
+          </label>
+          <button type="submit">Получить размеченные данные</button>
+        </form>
+
+        <section class="features" aria-labelledby="features-title">
+          <h2 id="features-title">Какие признаки нужны</h2>
+          <div class="feature-grid">
+            <article>
+              <h3>Пирикуляриоз риса, Краснодар</h3>
+              <p>Колонки: <code>year</code>, <code>day</code>, <code>t_min</code>, <code>t_max</code>, <code>is_rain</code>, <code>precipitation</code>, <code>t_avg</code>, <code>cloudiness</code>, <code>t_gt_7</code>.</p>
+              <p>В исходном Excel можно использовать названия <code>T_min</code>, <code>T_max</code>, <code>Is_rain</code>, <code>Precipitation</code>, <code>T_avg</code>, <code>Cloudines</code>, <code>T&gt;7</code>.</p>
+            </article>
+            <article>
+              <h3>Фитофтороз картофеля, Гатчина</h3>
+              <p>Колонки: <code>year</code>, <code>day</code>, <code>t_min</code>, <code>t_max</code>, <code>is_rain</code>, <code>precipitation</code>, <code>t_avg</code>, <code>cloudiness</code>, <code>precipitation_t_gt_10</code>, <code>t_gt_10</code>.</p>
+              <p>В исходном Excel можно использовать названия <code>Unnamed: 0</code> для года, <code>T_min</code>, <code>T_max</code>, <code>Is_rain</code>, <code>Precipitation</code>, <code>T_avg</code>, <code>Cloudiness</code>, <code>Precipitation_T_gt_10</code>, <code>T&gt;10</code>.</p>
+            </article>
+          </div>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>

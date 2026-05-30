@@ -1,0 +1,52 @@
+{
+  "data": "Данные Краснодар 2012-2021.xlsx",
+  "target": "target_favorable",
+  "target_note": "Blank/non-numeric Target_Fav values are treated as 0.",
+  "exclude_y_derived": true,
+  "split": {
+    "train": [
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017
+    ],
+    "validation": [
+      2018,
+      2019
+    ],
+    "test": [
+      2020,
+      2021
+    ],
+    "fit": "train"
+  },
+  "feature_columns": [
+    "year",
+    "day",
+    "t_min",
+    "t_max",
+    "is_rain",
+    "precipitation",
+    "t_avg",
+    "cloudiness",
+    "t_gt_7"
+  ],
+  "random_state": 42,
+  "tuning": {
+    "enabled": true,
+    "trials": 10,
+    "timeout": null,
+    "objective": "validation f1",
+    "best_validation_f1": 0.6666666666666666,
+    "best_params": {
+      "n_estimators": 100,
+      "max_depth": 24,
+      "min_samples_split": 17,
+      "min_samples_leaf": 3,
+      "max_features": null,
+      "class_weight": "balanced"
+    }
+  }
+}

@@ -5,7 +5,7 @@
 Доступные сценарии:
 
 - пирикуляриоз риса в Краснодаре: `krasnodar_model_results_optuna_10/random_forest_f1_0.741`;
-- фитофтороз картофеля в Гатчине: `golitcino_model_results_optuna_50/random_forest_f1_0.691`.
+- фитофтороз картофеля в Гатчине: `golitcino_model_results_optuna_50/logreg_f1_0.761`.
 
 ## Запуск
 
@@ -15,8 +15,6 @@ python -m venv .venv
 pip install -r requirements.txt
 python -m app.server
 ```
-
-После запуска откройте `http://127.0.0.1:8000`.
 
 ## Что делает сервис
 
@@ -68,20 +66,5 @@ python -m app.server
 - `Precipitation_T_gt_10` — осадки при температуре выше 10 градусов;
 - `T>10` — температурный признак `t_gt_10`.
 
-Если `Precipitation_T_gt_10` отсутствует, сервис считает его из `precipitation` и `t_avg`: осадки сохраняются только для строк, где `t_avg > 10`, иначе ставится 0. Если `T>10` отсутствует, используется `t_avg`.
-
-## Проверка
-
-```bash
-python -m pytest
-```
-
-Если `pytest` не установлен, можно выполнить быструю проверку инференса:
-
-```bash
-python - <<'PY'
-from app.inference import predict_workbook
-result = predict_workbook("../Данные Краснодар 2012-2021.xlsx", "krasnodar_rice_blast")
-print(result.rows, result.event_count)
-PY
-```
+## Сервис запущен тут:
+https://diploma-web-ui.onrender.com/

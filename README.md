@@ -2,10 +2,14 @@
 
 Минималистичный Python-сайт для загрузки Excel-файла с погодными данными и получения размеченного `.xlsx` с прогнозом наступления болезни.
 
+Сервис запущен тут: https://diploma-web-ui.onrender.com/
+
+Модели обучены в репозитории [diploma](https://github.com/ncbx666/diploma) (код ВКР). Веса и конфиги лежат в `models/`.
+
 Доступные сценарии:
 
 - пирикуляриоз риса в Краснодаре: `krasnodar_model_results_optuna_10/random_forest_f1_0.741`;
-- фитофтороз картофеля в Гатчине: `golitcino_model_results_optuna_50/logreg_f1_0.761`.
+- фитофтороз картофеля в Гатчине: `golitcino_model_results_optuna_50/random_forest_f1_0.691`.
 
 ## Запуск
 
@@ -15,6 +19,8 @@ python -m venv .venv
 pip install -r requirements.txt
 python -m app.server
 ```
+
+После запуска откройте http://127.0.0.1:8000. Адрес и порт меняются переменными `HOST` и `PORT`.
 
 ## Что делает сервис
 
@@ -66,5 +72,10 @@ python -m app.server
 - `Precipitation_T_gt_10` — осадки при температуре выше 10 градусов;
 - `T>10` — температурный признак `t_gt_10`.
 
-## Сервис запущен тут:
-https://diploma-web-ui.onrender.com/
+Если `Precipitation_T_gt_10` отсутствует, сервис считает его из `precipitation` и `t_avg`: осадки сохраняются только для строк, где `t_avg > 10`, иначе ставится 0. Если `T>10` отсутствует, используется `t_avg`.
+
+## Тесты
+
+```bash
+python -m pytest -q
+```
